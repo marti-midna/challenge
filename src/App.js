@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import AddContact from './components/AddContact';
+import CardList from './components/CardsList';
+import SearchContact from './components/SearchContact';
 
 function App() {
+  const [contactData, setContactData] = useState([]);
+  const [searchContact, setSearchContact] = useState('');
+
+  const inputsApp = (nomeInput, cognomeInput, numeroInput) => {
+    const contatto = {
+      nome: nomeInput,
+      cognome: cognomeInput,
+      numero: numeroInput,
+    }
+    console.log('questo è il tuo contatto',contatto);
+    setContactData([contatto, ...contactData]);
+  }
+
+  const deleteContact = (value) => {
+    const arr2 = contactData.filter(item => item.nome !== (value));
+    setContactData(arr2);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddContact inputsApp={inputsApp}/>
+      <SearchContact setSearchContact={setSearchContact}/>
+      <CardList contactData={contactData} searchContact={searchContact} deleteContact={deleteContact}/>
     </div>
   );
 }
 
 export default App;
+
+
