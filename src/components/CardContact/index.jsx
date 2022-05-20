@@ -14,4 +14,3 @@ export default function CardContact({ contactData, deleteContact }) {
   );
 }
 
-// arr.filter(user => !user.name.includes('Martina'))
